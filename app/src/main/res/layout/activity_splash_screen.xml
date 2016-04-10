@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.android.exampal.SplashScreen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/Splashscreen"
+        android:src="@drawable/splashscreen"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/exampal_splashscreen" />
+
+   <ProgressBar
+       android:id="@+id/progressBar"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="54dp"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true" />
+</RelativeLayout>
