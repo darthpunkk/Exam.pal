@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Exam.pal</string>
     <string name="exampal_splashscreen">Exampal_splashscreen</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="one">one</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="two">two</string>
 </resources>
