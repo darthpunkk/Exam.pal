@@ -2,7 +2,10 @@ package com.example.android.exampal;
 
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +14,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class FirstFragment extends Fragment {
 
 
-    private  EditText emailText;
-    private EditText passText;
-    private Button loginButton;
-    private TextView registerView;
-    private  int counter=0;
+      EditText emailText;
+      EditText passText;
+      Button loginButton;
+      TextView registerView;
+      int counter=0;
 
 
     public FirstFragment() {
@@ -31,6 +42,8 @@ public class FirstFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         View view = inflater.inflate(R.layout.fragment_first, container, false);
         emailText  = (EditText) view.findViewById(R.id.emailText);
         passText = (EditText) view.findViewById(R.id.passwordText);
@@ -85,6 +98,55 @@ public class FirstFragment extends Fragment {
 
                 }
 
+
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final String name = nameText.getText().toString();
+                final String department = DeptText.getText().toString();
+                final String ph_no = phoneNumber.getText().toString();
+                final String mail_id = emailText.getText().toString();
+                final String password = passText.getText().toString();
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            Log.i("tagconvertstr", "["+response+"]");
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                            if(success){
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                builder.setMessage("You have successfully Registered")
+                                        .setPositiveButton("login",null)
+                                        .create()
+                                        .show();
+
+                            }
+                            else{
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                builder.setMessage("You have already registered")
+                                        .setNegativeButton("retry login",null)
+                                        .create()
+                                        .show();
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+
+                RegisterRequest registerRequest = new RegisterRequest(name,mail_id,department,ph_no,password,responseListener);
+                RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                requestQueue.add(registerRequest);
 
             }
         });

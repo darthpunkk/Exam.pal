@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 public class SplashScreen extends AppCompatActivity {
     private static boolean playOnce = false;
+    private static boolean activityVisible = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +23,11 @@ public class SplashScreen extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent =new Intent(SplashScreen.this,LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if(activityVisible) {
+                        Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             },7000);
                     playOnce = true;
@@ -36,4 +39,16 @@ public class SplashScreen extends AppCompatActivity {
             finish();
         }
     }
-}
+    protected void onPause(){
+        super.onPause();
+        activityVisible=false;
+
+
+    }
+    protected void onResume(){
+        super.onResume();
+        activityVisible=true;
+    }
+
+    }
+
