@@ -1,10 +1,13 @@
 package com.example.android.exampal;
 
 
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -57,7 +60,7 @@ public class FirstFragment extends Fragment {
         final EditText phoneNumber = new EditText(getActivity());
         final Button registerButton = new Button(getActivity());
         final LinearLayout layout = (LinearLayout)view.findViewById(R.id.fragmentLayout);
-
+        phoneNumber.setInputType(InputType.TYPE_CLASS_PHONE);
         LinearLayout.LayoutParams parameters1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT) ;
         nameText.setLayoutParams(parameters1);
         DeptText.setLayoutParams(parameters1);
@@ -69,6 +72,8 @@ public class FirstFragment extends Fragment {
         DeptText.setHint("Enter Department");
         phoneNumber.setHint("Enter Phone Number");
         registerButton.setText("Register");
+        registerView.setTextColor(Color.BLUE);
+        registerView.setTextSize(17);
 
 
 
@@ -85,7 +90,7 @@ public class FirstFragment extends Fragment {
                     layout.addView(phoneNumber,3);
                     layout.removeView(loginButton);
                     layout.addView(registerButton,5);
-                    registerView.setText("Already Logged in? login");
+                    registerView.setText("Already signed Up? login");
                 }
                 else{
                     layout.removeView(nameText);
@@ -93,7 +98,7 @@ public class FirstFragment extends Fragment {
                     layout.removeView(phoneNumber);
                     layout.removeView(registerButton);
                     layout.addView(loginButton,2);
-                    registerView.setText("New User? Register");
+                    registerView.setText("New User? Sign Up");
                     counter=0;
 
                 }
@@ -120,18 +125,42 @@ public class FirstFragment extends Fragment {
                             Log.i("tagconvertstr", "["+response+"]");
                             JSONObject jsonObject = new JSONObject(response);
                             boolean success = jsonObject.getBoolean("success");
-                            if(success){
-                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                builder.setMessage("You have successfully Registered")
-                                        .setPositiveButton("login",null)
-                                        .create()
-                                        .show();
+                            boolean noValue = jsonObject.getBoolean("Value");
+                            if(noValue) {
+                                if (success) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                    builder.setMessage("You have successfully Registered")
+                                            .setPositiveButton("login", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    layout.removeView(nameText);
+                                                    layout.removeView(DeptText);
+                                                    layout.removeView(phoneNumber);
+                                                    layout.removeView(registerButton);
+                                                    layout.addView(loginButton,2);
+                                                    registerView.setText("New User? Sign Up");
+                                                    counter=0;
 
+                                                }
+                                            })
+                                            .setNegativeButton("Cancel",null)
+                                            .create()
+                                            .show();
+
+                                } else {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                    builder.setMessage("You have already registered")
+                                            .setPositiveButton("retry",null)
+                                            .setNegativeButton("cancel", null)
+                                            .create()
+                                            .show();
+
+                                }
                             }
                             else{
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                builder.setMessage("You have already registered")
-                                        .setNegativeButton("retry login",null)
+                                builder.setMessage("Fields are empty..")
+                                        .setNegativeButton("retry", null)
                                         .create()
                                         .show();
 

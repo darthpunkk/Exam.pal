@@ -29,7 +29,7 @@ public class SplashScreen extends AppCompatActivity {
                         finish();
                     }
                 }
-            },7000);
+            },4000);
                     playOnce = true;
         }
         else
