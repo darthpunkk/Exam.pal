@@ -1,7 +1,9 @@
 package com.example.android.exampal;
 
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -61,13 +63,14 @@ public class FirstFragment extends Fragment {
         final Button registerButton = new Button(getActivity());
         final LinearLayout layout = (LinearLayout)view.findViewById(R.id.fragmentLayout);
         phoneNumber.setInputType(InputType.TYPE_CLASS_PHONE);
-        LinearLayout.LayoutParams parameters1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT) ;
-        nameText.setLayoutParams(parameters1);
-        DeptText.setLayoutParams(parameters1);
-        phoneNumber.setLayoutParams(parameters1);
-        LinearLayout.LayoutParams parameters2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT) ;
-        parameters2.gravity = Gravity.CENTER;
-        registerButton.setLayoutParams(parameters2);
+        LinearLayout.LayoutParams parameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT) ;
+        nameText.setLayoutParams(parameters);
+        DeptText.setLayoutParams(parameters);
+        phoneNumber.setLayoutParams(parameters);
+
+        registerButton.setLayoutParams(parameters);
+        registerButton.setBackgroundResource(R.drawable.rect);
+        registerButton.setTextColor(getResources().getColor(R.color.textColorPrimary));
         nameText.setHint("Enter Name");
         DeptText.setHint("Enter Department");
         phoneNumber.setHint("Enter Phone Number");
@@ -110,7 +113,10 @@ public class FirstFragment extends Fragment {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                final ProgressDialog pDialog = new ProgressDialog(getActivity());
+                pDialog.setMessage("Loading...");
+                pDialog.show();
+                pDialog.setCancelable(false); //disable touch outside
                 final String name = nameText.getText().toString();
                 final String department = DeptText.getText().toString();
                 final String ph_no = phoneNumber.getText().toString();
@@ -123,6 +129,7 @@ public class FirstFragment extends Fragment {
 
                         try {
                             Log.i("tagconvertstr", "["+response+"]");
+                            pDialog.dismiss();
                             JSONObject jsonObject = new JSONObject(response);
                             boolean success = jsonObject.getBoolean("success");
                             boolean noValue = jsonObject.getBoolean("Value");
@@ -179,8 +186,89 @@ public class FirstFragment extends Fragment {
 
             }
         });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final ProgressDialog pDialog = new ProgressDialog(getActivity());
+                pDialog.setMessage("Loading...");
+                pDialog.show();
+                pDialog.setCancelable(false);
+                final String mail_id = emailText.getText().toString();
+                final String password = passText.getText().toString();
+                Log.i("cred", "["+password+"]");
+                Log.i("cred", "["+mail_id+"]");
+
+                Response.Listener<String> listener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            Log.i("tagconvertstr", "["+response+"]");
+                            pDialog.dismiss();
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean noValue = jsonObject.getBoolean("Value");
+                            if(noValue) {
+                                boolean userExists = jsonObject.getBoolean("User");
+                                if (userExists) {
+                                    boolean success = jsonObject.getBoolean("success");
+
+                                    if (success) {
+                                        String F_name = jsonObject.getString("name");
+                                        Intent intent = new Intent(getActivity(), UserArea.class);
+                                        intent.putExtra("F_name", F_name);
+                                        startActivity(intent);
+
+                                    } else {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                        builder.setMessage("Incorrect Password")
+                                                .setNegativeButton("retry", null)
+                                                .create()
+                                                .show();
+                                    }
+                                } else {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                    builder.setMessage("Incorrect Username/New User")
+                                            .setNegativeButton("retry", null).setPositiveButton("Register", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            layout.addView(nameText, 1);
+                                            layout.addView(DeptText, 2);
+                                            layout.addView(phoneNumber, 3);
+                                            layout.removeView(loginButton);
+                                            layout.addView(registerButton, 5);
+                                            registerView.setText("Already signed Up? login");
+                                            counter++;
+
+                                        }
+                                    })
+                                            .create()
+                                            .show();
+
+                                }
+                            }
+                            else{
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                builder.setMessage("Fields are empty..")
+                                        .setNegativeButton("retry", null)
+                                        .create()
+                                        .show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+                LoginRequest loginRequest = new LoginRequest(mail_id,password,listener);
+                RequestQueue loginQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                loginQueue.add(loginRequest);
+            }
+        });
         // Inflate the layout for this fragment
         return view;
     }
+
 
 }

@@ -24,28 +24,29 @@ android:orientation="vertical">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:ems="10"
         android:id="@+id/passwordText"
         android:hint="@string/enter_password"
         />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:id="@+id/LoginButton"
-            android:layout_gravity="center_horizontal" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:textColor="@color/textColorPrimary"
+        android:background="@drawable/rect"
+        android:id="@+id/LoginButton"
 
-
-
-
-
+        android:layout_gravity="center_horizontal"></Button>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="20dp"
         android:textSize="20sp"
         android:text="@string/new_register"
         android:id="@+id/RegisterView"
         android:layout_gravity="center_horizontal" />
+
+
+
 
 </LinearLayout>
 </ScrollView>

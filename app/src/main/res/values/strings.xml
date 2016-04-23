@@ -8,11 +8,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="two">two</string>
     <string name="login">Login</string>
-    <string name="enter_password">Enter Password</string>
+    <string name="enter_password">Enter-Password</string>
     <string name="enter_e_mail">Enter E-mail</string>
     <string name="new_register">New User? Register</string>
-        <string name="Course">Select Course: </string>
+    <string name="Course">Select Course: </string>
     <string name="Year">Select Year: </string>
+    <string name="show_list">Show List</string>
     <string-array name="courseList">
         <item>CSE</item>
         <item>MECH</item>
