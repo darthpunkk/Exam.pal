@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,10 +24,28 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class UserArea extends AppCompatActivity {
+public class UserArea extends AppCompatActivity  {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.logout,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:
+                    sessionManagement.LogOut();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    HashMap<String,String> userDetails;
     private static final String REQUEST_URL = "	http://exampal.site88.net/getDutyTable.php";
     private static final String F_NAME = "F_name";
     private static final String F_DEPT = "F_dept";
@@ -32,15 +53,15 @@ public class UserArea extends AppCompatActivity {
     private static final String F_PH_NO = "F_phoneno";
     private static final String FACULTY_INFO = "faculty_info";
     private JSONArray jsonArray;
-    private String name;
     private ListView listView;
     private CustomAdapter customAdapter;
     private List<FacultyInfo> infoList = new ArrayList<FacultyInfo>();
-
+    SessionManagement sessionManagement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sessionManagement = new SessionManagement(this);
 
         setContentView(R.layout.activity_user_area);
         final TextView textView = (TextView)findViewById(R.id.extraText) ;
@@ -48,10 +69,9 @@ public class UserArea extends AppCompatActivity {
         listView = (ListView)findViewById(R.id.facultyList) ;
         customAdapter = new CustomAdapter(this,infoList);
         listView.setAdapter(customAdapter);
-        Intent intent=getIntent();
-        name = intent.getStringExtra("F_name");
-
-        textView.setText("hi "+name);
+        userDetails = sessionManagement.getUserDetails();
+        Log.i("tagconvertstr", "["+userDetails+"]");
+        textView.setText("hi "+userDetails.get("name"));
 
         ShowList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +114,7 @@ public class UserArea extends AppCompatActivity {
             try {
                 JSONObject jsonObject = JArray.getJSONObject(i);
                 FacultyInfo f_info = new FacultyInfo();
-                if(!jsonObject.getString(F_NAME).equals(name)){
+                if(!jsonObject.getString(F_NAME).equals(userDetails.get("name"))){
                     f_info.setFacultyName(jsonObject.getString(F_NAME));
                     f_info.setFacultyDept(jsonObject.getString(F_DEPT));
                     f_info.setFacultyRno(" ");

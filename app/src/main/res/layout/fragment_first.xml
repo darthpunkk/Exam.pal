@@ -1,52 +1,64 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp"
+    android:padding="20dp"
     android:scrollbars="vertical"
     tools:context="com.example.android.exampal.FirstFragment">
 
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:id="@+id/fragmentLayout"
-android:orientation="vertical">
 
-    <EditText
+    <android.support.v7.widget.CardView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/emailText"
-        android:layout_marginTop="67dp"
-        android:hint="@string/enter_e_mail"
-        android:inputType="textEmailAddress"/>
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="10dp">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:id="@+id/passwordText"
-        android:hint="@string/enter_password"
-        />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:textColor="@color/textColorPrimary"
-        android:background="@drawable/rect"
-        android:id="@+id/LoginButton"
+        <LinearLayout
+            android:id="@+id/fragmentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        android:layout_gravity="center_horizontal"></Button>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:textSize="20sp"
-        android:text="@string/new_register"
-        android:id="@+id/RegisterView"
-        android:layout_gravity="center_horizontal" />
+            <EditText
+                android:id="@+id/emailText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:hint="@string/enter_e_mail"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/passwordText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_password"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/LoginButton"
+                android:layout_width="250dp"
+                android:layout_marginTop="15dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rect"
+
+                android:text="@string/login"
+                android:textColor="@color/textColorPrimary"></Button>
+
+            <TextView
+                android:id="@+id/RegisterView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/blue"
+                android:text="@string/new_register"
+                android:textSize="20sp" />
 
 
-
-
-</LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </ScrollView>

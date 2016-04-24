@@ -3,8 +3,9 @@
     <color name="colorPrimary">#f58b00</color>
     <color name="colorPrimaryDark">#e25f01</color>
     <color name="textColorPrimary">#FFFFFF</color>
-    <color name="windowBackground">#e9e8e8</color>
+    <color name="textColorSecondary">#000000</color>
+    <color name="windowBackground">#d9d9d9</color>
     <color name="navigationBarColor">#e25f01</color>
     <color name="colorAccent">#b61319</color>
-    <color name="blue">#061979</color>
+    <color name="blue">#5b74f2</color>
 </resources>
