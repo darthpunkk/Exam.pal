@@ -2,15 +2,9 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/Refresh"
+    <item android:id="@+id/RefreshAdmin"
         android:title="Refresh"
         android:icon="@drawable/refresh"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom" />
-
-
-    <item android:id="@+id/logout"
-        android:title="Logout"
-        android:orderInCategory="100"
-       app:showAsAction="never" />
+        app:showAsAction="always" />
 </menu>

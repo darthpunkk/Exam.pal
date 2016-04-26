@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/facultyName_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/room_no_button"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/dept_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_alignBottom="@+id/room_no_button"
+        android:layout_toLeftOf="@+id/room_no_admin"
+        android:layout_toStartOf="@+id/room_no_admin"
+        android:layout_marginRight="25dp"
+        android:layout_marginEnd="20dp" />
+    <EditText
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/room_no_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/room_no_button"
+        android:layout_toStartOf="@+id/room_no_button" />
+
+    <Button
+        android:id="@+id/room_no_button"
+        android:layout_width="70dp"
+        android:background="@drawable/adminrect"
+        android:layout_height="25dp"
+        android:text="@string/Assignok"
+        android:layout_alignParentEnd="true"
+        android:textSize="12sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/textColorPrimary"
+        android:padding="4dp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>

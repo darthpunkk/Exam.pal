@@ -4,7 +4,6 @@ package com.example.android.exampal;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -58,7 +57,7 @@ public class FirstFragment extends Fragment {
 
         sessionManagement = new SessionManagement(getContext());
 
-        if(!sessionManagement.isLoggedIn()) {
+        if (!sessionManagement.isLoggedIn()) {
 
             emailText = (EditText) view.findViewById(R.id.emailText);
             passText = (EditText) view.findViewById(R.id.passwordText);
@@ -206,85 +205,98 @@ public class FirstFragment extends Fragment {
                     final ProgressDialog pDialog = new ProgressDialog(getActivity());
                     pDialog.setMessage("Loading...");
                     pDialog.show();
-                    pDialog.setCancelable(false);
+
                     final String mail_id = emailText.getText().toString();
                     final String password = passText.getText().toString();
                     Log.i("cred", "[" + password + "]");
                     Log.i("cred", "[" + mail_id + "]");
 
-                    Response.Listener<String> listener = new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
+                    if (!(mail_id.equals("admin") && password.equals("admin"))) {
 
-                            try {
-                                Log.i("tagconvertstr", "[" + response + "]");
-                                pDialog.dismiss();
-                                JSONObject jsonObject = new JSONObject(response);
-                                boolean noValue = jsonObject.getBoolean("Value");
-                                if (noValue) {
-                                    boolean userExists = jsonObject.getBoolean("User");
-                                    if (userExists) {
-                                        boolean success = jsonObject.getBoolean("success");
 
-                                        if (success) {
-                                            String F_name = jsonObject.getString("name");//as in php file
-                                            String F_dept = jsonObject.getString("dept");//as in php file
-                                            String F_Rno = jsonObject.getString("dept");//as in php file
-                                            String F_mail = jsonObject.getString("mail_id");//as in php file
-                                            sessionManagement.loginSession(F_name, F_Rno, F_dept, F_mail);
-                                            Intent intent = new Intent(getActivity(), UserArea.class);
-                                            startActivity(intent);
 
+                        Response.Listener<String> listener = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                                try {
+                                    Log.i("tagconvertstr", "[" + response + "]");
+                                    pDialog.dismiss();
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    boolean noValue = jsonObject.getBoolean("Value");
+                                    if (noValue) {
+                                        boolean userExists = jsonObject.getBoolean("User");
+                                        if (userExists) {
+                                            boolean success = jsonObject.getBoolean("success");
+
+                                            if (success) {
+                                                String F_name = jsonObject.getString("name");//as in php file
+                                                String F_dept = jsonObject.getString("dept");//as in php file
+                                                String F_Rno = jsonObject.getString("room");//as in php file
+                                                String F_mail = jsonObject.getString("mail_id");//as in php file
+                                                sessionManagement.loginSession(F_name, F_Rno, F_dept, F_mail);
+                                                Intent intent = new Intent(getActivity(), UserArea.class);
+                                                startActivity(intent);
+                                                getActivity().finish();
+
+                                            } else {
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                builder.setMessage("Incorrect Password")
+                                                        .setNegativeButton("retry", null)
+                                                        .create()
+                                                        .show();
+                                            }
                                         } else {
                                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                            builder.setMessage("Incorrect Password")
-                                                    .setNegativeButton("retry", null)
+                                            builder.setMessage("Incorrect Username/New User")
+                                                    .setNegativeButton("retry", null).setPositiveButton("Register", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    layout.addView(nameText, 1);
+                                                    layout.addView(DeptText, 2);
+                                                    layout.addView(phoneNumber, 3);
+                                                    layout.removeView(loginButton);
+                                                    layout.addView(registerButton, 5);
+                                                    registerView.setText("Already signed Up? login");
+                                                    counter++;
+
+                                                }
+                                            })
                                                     .create()
                                                     .show();
+
                                         }
                                     } else {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                        builder.setMessage("Incorrect Username/New User")
-                                                .setNegativeButton("retry", null).setPositiveButton("Register", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                layout.addView(nameText, 1);
-                                                layout.addView(DeptText, 2);
-                                                layout.addView(phoneNumber, 3);
-                                                layout.removeView(loginButton);
-                                                layout.addView(registerButton, 5);
-                                                registerView.setText("Already signed Up? login");
-                                                counter++;
-
-                                            }
-                                        })
+                                        builder.setMessage("Fields are empty..")
+                                                .setNegativeButton("retry", null)
                                                 .create()
                                                 .show();
-
                                     }
-                                } else {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                    builder.setMessage("Fields are empty..")
-                                            .setNegativeButton("retry", null)
-                                            .create()
-                                            .show();
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             }
+                        };
+                        LoginRequest loginRequest = new LoginRequest(mail_id, password, listener);
+                        RequestQueue loginQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                        loginQueue.add(loginRequest);
+                    }
+                    else
+                    {
+                        Intent adminIntent = new Intent(getActivity(),AdminControl.class);
+                        startActivity(adminIntent);
+                        getActivity().finish();
 
-                        }
-                    };
-                    LoginRequest loginRequest = new LoginRequest(mail_id, password, listener);
-                    RequestQueue loginQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                    loginQueue.add(loginRequest);
+                    }
                 }
             });
-        }
-        else {
+        } else {
             Intent intent = new Intent(getActivity(), UserArea.class);
             startActivity(intent);
+            getActivity().finish();
         }
         // Inflate the layout for this fragment
         return view;

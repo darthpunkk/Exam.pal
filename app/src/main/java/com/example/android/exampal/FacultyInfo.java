@@ -49,6 +49,9 @@ public class FacultyInfo {
     }
 
     public void setFacultyRno(String facultyRno) {
+        if(!(facultyRno.equals("null")||facultyRno.equals("")))
         this.facultyRno = facultyRno;
+        else
+            this.facultyRno = "000";
     }
 }

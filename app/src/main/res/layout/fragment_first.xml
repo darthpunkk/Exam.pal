@@ -44,7 +44,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/rect"
-
+                android:soundEffectsEnabled="true"
                 android:text="@string/login"
                 android:textColor="@color/textColorPrimary"></Button>
 

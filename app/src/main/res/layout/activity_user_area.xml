@@ -13,17 +13,24 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/extraText"
+        android:id="@+id/get_name_text"
         android:textSize="25sp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/get_room_text"
+        android:textSize="25sp"
+        android:layout_below="@+id/get_name_text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/show_list"
         android:id="@+id/showListButton"
-        android:layout_marginTop="61dp"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/extraText"
+        android:layout_below="@+id/get_room_text"
         android:layout_centerHorizontal="true" />
 
     <ListView

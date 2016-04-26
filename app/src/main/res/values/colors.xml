@@ -6,6 +6,7 @@
     <color name="textColorSecondary">#000000</color>
     <color name="windowBackground">#d9d9d9</color>
     <color name="navigationBarColor">#e25f01</color>
-    <color name="colorAccent">#b61319</color>
+    <color name="colorAccent">#e7171e</color>
     <color name="blue">#5b74f2</color>
+    <color name="colorPrimaryAdmin">#941116</color>
 </resources>

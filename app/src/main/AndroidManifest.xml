@@ -20,6 +20,7 @@
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -29,7 +30,10 @@
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".UserArea"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".AdminControl" android:windowSoftInputMode="stateHidden|adjustPan"
+            android:label="Administator"
+            android:theme="@style/AdminTheme"></activity>
     </application>
 
 </manifest>

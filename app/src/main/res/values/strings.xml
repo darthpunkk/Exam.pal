@@ -14,6 +14,10 @@
     <string name="Course">Select Course: </string>
     <string name="Year">Select Year: </string>
     <string name="show_list">Show List</string>
+    <string name="Assign">000</string>
+    <string name="Assignok">save</string>
+    <string name="call_icon">callIicon</string>
+    <string name="submitall">save all</string>
     <string-array name="courseList">
         <item>CSE</item>
         <item>MECH</item>

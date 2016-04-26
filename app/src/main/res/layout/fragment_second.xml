@@ -1,51 +1,64 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:card_view="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:padding="20dp"
+android:scrollbars="vertical"
+tools:context="com.example.android.exampal.FirstFragment">
+<android.support.v7.widget.CardView
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.android.exampal.SecondFragment">
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="10dp">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Year"
-        android:id="@+id/YearSelect"
-        android:textSize="20sp"
-        android:layout_marginTop="93dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/CourseSelect"
-        android:layout_alignStart="@+id/CourseSelect" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Course"
-        android:id="@+id/CourseSelect"
-        android:textSize="20sp"
-        android:layout_marginLeft="38dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="44dp"
-        android:layout_below="@+id/YearSelect"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Spinner
-        android:entries="@array/yearList"
-        android:spinnerMode="dialog"
+    <LinearLayout
+        android:id="@+id/fragmentLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner1"
-        android:layout_alignBottom="@+id/YearSelect"
-        android:layout_toRightOf="@+id/YearSelect"
-        android:layout_toEndOf="@+id/YearSelect" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Year"
+            android:id="@+id/YearSelect"
+            android:textSize="20sp"
+            android:padding="15dp"
+            android:layout_gravity="center_horizontal" />
 
-    <Spinner
-        android:entries="@array/courseList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner2"
-        android:layout_alignBottom="@+id/CourseSelect"
-        android:layout_toRightOf="@+id/CourseSelect"
-        android:layout_toEndOf="@+id/CourseSelect"
-         />
-</RelativeLayout>
+        <Spinner
+            android:entries="@array/yearList"
+            android:spinnerMode="dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:id="@+id/spinner1"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Course"
+            android:id="@+id/CourseSelect"
+            android:padding="15dp"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal" />
+
+        <Spinner
+            android:entries="@array/courseList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:spinnerMode="dialog"
+            android:id="@+id/spinner2"
+            />
+
+
+
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
+</ScrollView>
