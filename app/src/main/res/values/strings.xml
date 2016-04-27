@@ -18,6 +18,7 @@
     <string name="Assignok">save</string>
     <string name="call_icon">callIicon</string>
     <string name="submitall">save all</string>
+    <string name="fetch">Fetch</string>
     <string-array name="courseList">
         <item>CSE</item>
         <item>MECH</item>

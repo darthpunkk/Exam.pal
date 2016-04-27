@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         setupViewPager(viewPager);

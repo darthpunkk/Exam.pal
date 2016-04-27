@@ -26,7 +26,7 @@ tools:context="com.example.android.exampal.FirstFragment">
             android:text="@string/Year"
             android:id="@+id/YearSelect"
             android:textSize="20sp"
-            android:padding="15dp"
+            android:padding="10dp"
             android:layout_gravity="center_horizontal" />
 
         <Spinner
@@ -34,7 +34,7 @@ tools:context="com.example.android.exampal.FirstFragment">
             android:spinnerMode="dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
+            android:padding="10dp"
             android:id="@+id/spinner1"
             />
 
@@ -43,7 +43,7 @@ tools:context="com.example.android.exampal.FirstFragment">
             android:layout_height="wrap_content"
             android:text="@string/Course"
             android:id="@+id/CourseSelect"
-            android:padding="15dp"
+            android:padding="10dp"
             android:textSize="20sp"
             android:layout_gravity="center_horizontal" />
 
@@ -51,10 +51,20 @@ tools:context="com.example.android.exampal.FirstFragment">
             android:entries="@array/courseList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:padding="10dp"
             android:spinnerMode="dialog"
             android:id="@+id/spinner2"
             />
+        <Button
+            android:id="@+id/fetchbutton"
+            android:layout_width="250dp"
+            android:layout_marginTop="15dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rect"
+            android:soundEffectsEnabled="true"
+            android:text="@string/fetch"
+            android:textColor="@color/textColorPrimary"/>
 
 
 

@@ -46,7 +46,7 @@
                 android:background="@drawable/rect"
                 android:soundEffectsEnabled="true"
                 android:text="@string/login"
-                android:textColor="@color/textColorPrimary"></Button>
+                android:textColor="@color/textColorPrimary"/>
 
             <TextView
                 android:id="@+id/RegisterView"
